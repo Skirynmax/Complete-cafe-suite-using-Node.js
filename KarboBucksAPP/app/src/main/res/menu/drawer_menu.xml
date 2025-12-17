@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/homeFragment"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:title="Inicio" />
+
+        <item
+            android:id="@+id/fragmentAutenticacion"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="Mi Cuenta" />
+
+        <item
+            android:id="@+id/estatusPedidoFragment"
+            android:icon="@android:drawable/ic_menu_recent_history"
+            android:title="Estado del Pedido" />
+        
+        <item
+            android:id="@+id/satisfactionFragment"
+            android:icon="@android:drawable/star_big_on"
+            android:title="Satisfacción" />
+    </group>
+
+</menu>
