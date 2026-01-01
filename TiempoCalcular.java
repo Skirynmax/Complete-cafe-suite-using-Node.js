@@ -5,7 +5,7 @@ public class TiempoCalcular {
 
     float tiempoTotal;//tiempo total del pedido
 
-    int tiempoPorProducto = 5*60;//5 minutos
+    int tiempoPorProducto = 1*60;//1 minuto
 
     public TiempoCalcular(int numeroProductos) {
         //Se calcula el tiempo total del pedido
