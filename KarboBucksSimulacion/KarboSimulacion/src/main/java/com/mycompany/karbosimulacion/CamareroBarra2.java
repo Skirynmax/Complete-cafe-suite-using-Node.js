@@ -15,11 +15,11 @@ public class CamareroBarra2 implements Runnable {
     public void run() {
         while (true) {
             try {
-                Pedido[] pedidos = gestorApi.getPedidos();
+                Pedido[] pedidos = gestorApi.ObtenerPedidos();
                 for (Pedido p : pedidos) {
                     // Solo procesar si es el pedido activo y está listo para recoger
-                    if (p.getId().equals(KarboSimulacion.idPedidoActual) && "Listo para recoger".equals(p.estado)) {
-                        procesarPagoYEntrega(p);
+                    if (p.ObtenerId().equals(KarboSimulacion.idPedidoActual) && "Listo para recoger".equals(p.estado)) {
+                        ProcesarPagoYEntrega(p);
                         KarboSimulacion.idPedidoActual = null; // Limpiar para el siguiente
                         break;
                     }
@@ -31,8 +31,8 @@ public class CamareroBarra2 implements Runnable {
         }
     }
 
-    private void procesarPagoYEntrega(Pedido p) {
-        String id = p.getId();
+    private void ProcesarPagoYEntrega(Pedido p) {
+        String id = p.ObtenerId();
         System.out.println("[CAMARERO 2] Iniciando cobro para " + p.nombre + " (Total: €"
                 + String.format("%.2f", p.totalPagar) + ")");
 
@@ -42,7 +42,7 @@ public class CamareroBarra2 implements Runnable {
             System.out.println("[CAMARERO 2] Pago recibido de " + p.nombre + ".");
 
             // Finalizar pedido
-            gestorApi.actualizarEstado(id, "Recogido");
+            gestorApi.ActualizarEstado(id, "Recogido");
             System.out.println("[CAMARERO 2] Pedido " + p.nombre + " -> Recogido y entregado.");
 
             // Liberar permiso del semáforo para permitir el siguiente cliente

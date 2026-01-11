@@ -19,7 +19,7 @@ public class GestorApi {
     private final HttpClient httpClient;
     private final Gson gson;
 
-    public GestorApi() {
+    public GestorApi() {//Preparar la version httpclient v1.1 para evitar fallos al conectarse a la api
         this.httpClient = HttpClient.newBuilder()
                 .version(HttpClient.Version.HTTP_1_1)
                 .connectTimeout(Duration.ofSeconds(10))
@@ -27,7 +27,7 @@ public class GestorApi {
         this.gson = new Gson();
     }
 
-    public Pedido[] getPedidos() throws Exception {
+    public Pedido[] ObtenerPedidos() throws Exception {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(API_URL + "/pedidos"))
                 .GET()
@@ -40,7 +40,7 @@ public class GestorApi {
         return new Pedido[0];
     }
 
-    public Producto[] getCarta() throws Exception {
+    public Producto[] ObtenerCarta() throws Exception {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(API_URL + "/carta"))
                 .GET()
@@ -53,7 +53,7 @@ public class GestorApi {
         return new Producto[0];
     }
 
-    public String crearPedido(Cliente cliente, float tiempoEstimado) throws Exception {
+    public String CrearPedido(Cliente cliente, float tiempoEstimado) throws Exception {
         JsonObject orderData = new JsonObject();
         orderData.addProperty("tiempoEntrega", tiempoEstimado);
         orderData.addProperty("nombre", cliente.nombre);
@@ -84,7 +84,7 @@ public class GestorApi {
         return null;
     }
 
-    public void actualizarEstado(String id, String estado) throws Exception {
+    public void ActualizarEstado(String id, String estado) throws Exception {
         JsonObject statusData = new JsonObject();
         statusData.addProperty("estado", estado);
 
@@ -101,7 +101,7 @@ public class GestorApi {
         }
     }
 
-    public float ejecutarCalculoTiempo(int numeroProductos) {
+    public float EjecutarCalculoTiempo(int numeroProductos) {
         System.out.println("Iniciando cálculo de tiempo para " + numeroProductos + " productos...");
         try {
             String rutaClaseActual = GestorApi.class.getProtectionDomain()

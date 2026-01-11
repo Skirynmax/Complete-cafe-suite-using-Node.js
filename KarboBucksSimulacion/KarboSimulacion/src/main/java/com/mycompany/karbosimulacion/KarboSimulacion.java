@@ -17,11 +17,11 @@ public class KarboSimulacion {
     public static volatile String idPedidoActual = null;
 
     public static void main(String[] args) {
-        System.out.println("--- Inicio de Simulación KarboBucks (Refactorizada) ---");
+        System.out.println("--- Inicio de Simulación KarboBucks ---");
 
         // Cargar productos de la API antes de empezar
         try {
-            Producto[] productos = gestorApi.getCarta();
+            Producto[] productos = gestorApi.ObtenerCarta();
             if (productos.length > 0) {
                 listaProductosDisponibles = Arrays.asList(productos);
                 System.out.println("[SISTEMA] Cargados " + listaProductosDisponibles.size() + " productos de la API.");
@@ -38,7 +38,7 @@ public class KarboSimulacion {
         // Iniciar hilos
         Thread generadorClientes = new Thread(new GeneradorClientes());
         Thread camarero = new Thread(new Camarero(colaClientes, gestorApi, serviceSemaphore));
-        Thread barista = new Thread(new Barista(gestorApi, serviceSemaphore));
+        Thread barista = new Thread(new Barista(gestorApi));
         Thread camarero2 = new Thread(new CamareroBarra2(gestorApi, serviceSemaphore));
 
         generadorClientes.start();
@@ -46,6 +46,7 @@ public class KarboSimulacion {
         barista.start();
         camarero2.start();
 
+        // Esperar a que todos los hilos terminen y se unan       
         try {
             generadorClientes.join();
             camarero.join();

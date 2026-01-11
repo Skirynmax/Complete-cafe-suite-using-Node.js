@@ -12,11 +12,11 @@ public class Pedido {
     public float tiempoEstimado;
     public String fechaCreado;
 
-    public String getId() {
+    public String ObtenerId() {
         return _id != null ? _id : "N/A";
     }
 
-    public String getFormattedTime() {
+    public String ObtenerTiempoFormateado() {
         if (fechaCreado != null) {
             return fechaCreado.substring(11, 16);
         }

@@ -26,7 +26,7 @@ public class Camarero implements Runnable {
                     }
                     semaforo.acquire();
                     Cliente cliente = colaClientes.poll();
-                    procesarPedido(cliente);
+                    ProcesarPedido(cliente);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -39,11 +39,11 @@ public class Camarero implements Runnable {
         }
     }
 
-    private void procesarPedido(Cliente cliente) {
+    private void ProcesarPedido(Cliente cliente) {
         System.out.println("[CAMARERO] Atendiendo a " + cliente.nombre);
 
         int numProductos = cliente.pedido.size();
-        float tiempoEstimado = gestorApi.ejecutarCalculoTiempo(numProductos);
+        float tiempoEstimado = gestorApi.EjecutarCalculoTiempo(numProductos);
         System.out.println("[CAMARERO] Tiempo estimado calculado: " + tiempoEstimado);
 
         if (tiempoEstimado < 0) {
@@ -54,7 +54,7 @@ public class Camarero implements Runnable {
 
         try {
             System.out.println("[CAMARERO] Enviando pedido a API...");
-            String id = gestorApi.crearPedido(cliente, tiempoEstimado);
+            String id = gestorApi.CrearPedido(cliente, tiempoEstimado);
             if (id != null) {
                 KarboSimulacion.idPedidoActual = id;
                 System.out.println("[CAMARERO] Pedido de " + cliente.nombre + " creado con éxito. ID: " + id);
